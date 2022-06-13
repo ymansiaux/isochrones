@@ -1,0 +1,92 @@
+/* @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Montserrat|Raleway');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css2?family=Raleway+Dots&display=swap'); */
+
+.content {
+   min-height: calc(100vh - 250px);
+}
+.footer {
+  height: 200px;
+}
+
+.title_section {
+  border-top: 2px solid #3FD2C7 ;
+  border-bottom: 2px solid #3FD2C7 ;
+  color:white;
+}
+
+.title_container h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+body {
+ background-color: black; 
+}
+
+.nav-link.active {
+  background-color:lightsteelblue;
+}
+
+.title_container{
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon_title {
+  font-size: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  
+}
+
+.section_title {
+  padding: 0.75rem;
+  margin: 0 auto;
+}
+
+.map_container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.map_with_opacity {
+  opacity: 0.1;
+}
+
+
+
+.card_title_flex_style {
+  flex: 1 1 0;
+}
+
+.card_text_flex_style {
+  flex: 2 1 0;
+}
+
+.card_button_flex_style {
+  flex: 1 1 0;
+}
+
+.card_content_flex_style {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card_content_flex_style > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

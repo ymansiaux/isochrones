@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 URL: https://git.scnbdx.fr/UVD/datalab/misc/isochrones
 BugReports: https://git.scnbdx.fr/UVD/datalab/misc/isochrones/issues
 Imports: 
+    bdxmetroidentity,
     config (>= 0.3.1),
     dplyr,
     golem (>= 0.3.1),
@@ -16,8 +17,12 @@ Imports:
     lwgeom,
     magrittr,
     osrm,
+    sass,
     sf,
     shiny (>= 1.7.1),
+    shinybusy,
+    shinyjs,
+    shinyYM,
     stringr,
     tibble,
     tidyr,
