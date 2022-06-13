@@ -40,24 +40,65 @@ app_ui <- function(request) {
       footer = includeHTML(app_sys("app/www/footer.html")),
       
       tabPanel(
-        "Accueil",
-        div(class = "content",
-            
-            fluidRow(
-              
-              column(width = 6,
-                     textInput(inputId = "adress",
-                               label = "Adresse à géocoder",
-                               value = "27 rue Jean Fleuret, 33000 Bordeaux",
-                               placeholder = "Ex : 35 rue Neuve, 33000 Bordeaux"),
+        "grid basique",
+        fluidRow(
+          column(width = 12,
+                 div(class = "parent content",
+                     div(class = "title_geocoding",
+                         h2("title_geocoding")
+                     ),
                      
-                     actionButton(inputId = "run_geocoding",
-                                  label = "Lancer le géocodage"
+                     div(class = "title_map_geocoding", 
+                         h2("title_map_geocoding")
+                     ),
+                     
+                     div(class = "map_geocoding",  
+                         leafletOutput("map_geocoding")
+                     ),
+                     
+                     div(class = "adress_to_geocode", 
+                         textInput(inputId = "adress",
+                                   label = "Adresse à géocoder",
+                                   value = "27 rue Jean Fleuret, 33000 Bordeaux",
+                                   placeholder = "Ex : 35 rue Neuve, 33000 Bordeaux")),
+                     
+                     div(class = "adress_to_geocode_validator",  
+                         actionButton(inputId = "run_geocoding",
+                                      label = "Lancer le géocodage"
+                         )),
+                     
+                     div(class = "geocoding_results_table", 
+                         DTOutput("geocoding_table")),
+                     
+                     div(class = "geocoded_adress_validator", 
+                         h5("Valider la sélection et passer au calcul des isochrones")
                      )
-              )
-            )
+                     
+                     
+                 )
+          )
         )
       ),
+      
+      # tabPanel(
+      #   "Accueil",
+      #   div(class = "content",
+      #       
+      #       fluidRow(
+      #         
+      #         column(width = 6,
+      #                textInput(inputId = "adress",
+      #                          label = "Adresse à géocoder",
+      #                          value = "27 rue Jean Fleuret, 33000 Bordeaux",
+      #                          placeholder = "Ex : 35 rue Neuve, 33000 Bordeaux"),
+      #                
+      #                actionButton(inputId = "run_geocoding",
+      #                             label = "Lancer le géocodage"
+      #                )
+      #         )
+      #       )
+      #   )
+      # ),
       
       tabPanel(
         "calculer un isochrone",
@@ -112,8 +153,8 @@ app_ui <- function(request) {
             
             actionButton(inputId = "equipements_computing", label = "Calculer les équipements présents dans la zone")
         ),
-        column(width = 6,
-               leafletOutput("map_geocoding")
+        column(width = 6, h5("titi")
+               # leafletOutput("map_geocoding")
                
         ) 
       )
@@ -135,14 +176,33 @@ golem_add_external_resources <- function(){
     'www', app_sys('app/www')
   )
   
+  
   tags$head(
-    favicon(),
-    bundle_resources(
-      path = app_sys('app/www'),
-      app_title = 'isochrones'
-    )
-    # Add here other external resources
-    # for example, you can add shinyalert::useShinyalert() 
+    # Note the wrapping of the string in HTML()
+    tags$style( ".parent {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+grid-template-rows: 0.5fr repeat(3, 1fr) 0.5fr;
+grid-column-gap: 10px;
+grid-row-gap: 10px;
+}
+
+.title_geocoding { grid-area: 1 / 1 / 2 / 3; }
+.title_map_geocoding { grid-area: 1 / 3 / 2 / 6; }
+.map_geocoding { grid-area: 2 / 3 / 5 / 7; }
+.geocoded_adress_validator { grid-area: 5 / 2 / 6 / 5; }
+.adress_to_geocode { grid-area: 2 / 1 / 3 / 2; }
+.adress_to_geocode_validator { grid-area: 2 / 2 / 3 / 3; }
+.geocoding_results_table { grid-area: 3 / 1 / 5 / 3; }
+"
+    ),
+favicon(),
+bundle_resources(
+  path = app_sys('app/www'),
+  app_title = 'isochrones'
+)
+# Add here other external resources
+# for example, you can add shinyalert::useShinyalert() 
   )
 }
 

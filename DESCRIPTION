@@ -12,6 +12,7 @@ Imports:
     bdxmetroidentity,
     config (>= 0.3.1),
     dplyr,
+    DT,
     golem (>= 0.3.1),
     leaflet,
     lwgeom,

@@ -13,12 +13,15 @@
 #' @importFrom leaflet leaflet addTiles addMarkers renderLeaflet addPolygons addAwesomeMarkers awesomeIcons
 #' @importFrom osrm osrmIsochrone
 #' @importFrom xtradata xtradata_requete_features
+#' @importFrom DT renderDT datatable DTOutput
 #' @noRd
 app_server <- function( input, output, session ) {
   
   data_geo <- reactiveValues(geocoding = NULL,
                              isochrone = NULL,
                              equipements = NULL)
+  
+  output$emptyMap <- renderLeaflet(leaflet() %>% addTiles())
   
   # Your application server logic 
   observeEvent(input$run_geocoding, {
@@ -52,11 +55,11 @@ app_server <- function( input, output, session ) {
     
      coordinates <-  str_split_fixed(string = geom$geometry, pattern = " ", n = 2)
      colnames(coordinates) <- c("x", "y")
-    
+     
      sf_geoloc <- bind_cols(tb_clean, coordinates) %>%
        st_as_sf(., coords = c("x", "y"), crs = 3945) %>%
-       st_transform(crs = 4326) %>% 
-       slice(1)#%>% 
+       st_transform(crs = 4326) #%>% 
+       #slice(1)#%>% 
        # slice_max(PERTINENCE)
     
     
@@ -65,11 +68,33 @@ app_server <- function( input, output, session ) {
      
   })
   
-  output$map_geocoding <- renderLeaflet({
+  
+  output$geocoding_table <- renderDT({
     
     req(data_geo$geocoding)
     
-    map <- data_geo$geocoding %>% 
+    datatable(
+      data_geo$geocoding,
+      selection = list(mode = "single", target = "row", selected = 1),
+      fillContainer = TRUE
+    )
+    
+    
+  })
+  
+  observe(
+    print(input$geocoding_table_rows_selected)
+  )
+  
+  
+  output$map_geocoding <- renderLeaflet({
+    
+    req(data_geo$geocoding)
+    req(input$geocoding_table_rows_selected)
+    
+    data_geo_selected_adress <- data_geo$geocoding[input$geocoding_table_rows_selected,]
+    
+    map <- data_geo_selected_adress %>% 
       leaflet() %>% 
       addTiles() %>% 
       addMarkers()
