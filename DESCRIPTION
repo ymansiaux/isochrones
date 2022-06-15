@@ -8,6 +8,8 @@ Description: Analyse des populations présentes proches de certains types
 License: MIT + file LICENSE
 URL: https://git.scnbdx.fr/UVD/datalab/misc/isochrones
 BugReports: https://git.scnbdx.fr/UVD/datalab/misc/isochrones/issues
+Depends: 
+    R (>= 2.10)
 Imports: 
     bdxmetroidentity,
     config (>= 0.3.1),
@@ -23,6 +25,7 @@ Imports:
     shiny (>= 1.7.1),
     shinybusy,
     shinyjs,
+    shinyWidgets,
     shinyYM,
     stringr,
     tibble,
@@ -37,5 +40,3 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 RoxygenNote: 7.1.2
-Depends: 
-    R (>= 2.10)

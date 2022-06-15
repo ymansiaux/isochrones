@@ -9,6 +9,7 @@
 #' @importFrom shinyYM waiter_logo add_notie_deps
 #' @importFrom sass font_google
 #' @importFrom leaflet leafletOutput
+#' @importFrom shinyWidgets pickerInput
 #' @noRd
 #'
 
@@ -69,7 +70,7 @@ app_ui <- function(request) {
                         tags$br(),
                         DTOutput("geocoding_table"),
                         tags$br(),
-                        actionButton(inputId = "run_geocoding",
+                        actionButton(inputId = "move_to_isochrone_computing",
                                      label = "Valider la sélection et passer à l'onglet suivant",
                                      onclick = "$('ul').find('[data-value=\"Calculer un isochrone\"]').tab('show');"
                         )
@@ -93,60 +94,97 @@ app_ui <- function(request) {
       tabPanel(
         "Calculer un isochrone",
         
-        div(class = "content",
-            
-            
-            sliderInput(inputId = "isochrone_size", 
-                        label = "Taille de l'isochone (minutes)",
-                        min = 1,
-                        max = 60,
-                        step = 5,
-                        value = 15),
-            
-            selectInput(inputId = "osrm.profile",
-                        label = "mode de déplacement",
-                        choices = c("piéton" = "foot",
-                                    "vélo" = "bike",
-                                    "auto" = "car")
+        div(class="parent",
+            div(class="div1 border", "Décrire l'objectif"),
+            div(class="div2 border",  
+                
+                div(class = "container",
+                    style = "display:flex;
+                             flex-direction : column;
+                             min-height:100%;
+                             ",
+                    
+                    div(
+                      tags$br(),
+                      actionButton(inputId = "back_to_geocoding",
+                                   label = "Revenir au géocodage d'une adresse",
+                                   onclick = "$('ul').find('[data-value=\"Géocodage\"]').tab('show');"
+                      ),
+                      
+                      h4("Calcul de l'isochrone"),
+                      tags$br(),
+                      div(class = "container",
+                          style = "display:flex;
+                             flex-direction : row;
+                             justify-content: space-between;
+                             ",
+                          sliderInput(inputId = "isochrone_size", 
+                                      label = "Taille de l'isochone (minutes)",
+                                      min = 1,
+                                      max = 60,
+                                      step = 5,
+                                      value = 15),
+                          
+                          selectInput(inputId = "osrm.profile",
+                                      label = "mode de déplacement",
+                                      choices = c("piéton" = "foot",
+                                                  "vélo" = "bike",
+                                                  "auto" = "car")
+                          )       
+                      ),
+                      
+                      actionButton(inputId = "isochrone_computing", label = "Lancer calcul de l'isochrone (patience ...)")
+                    ),
+                    
+                    div(style = "margin-bottom: auto;
+                               margin-top: auto;",
                         
+                        h4("Bonus : afficher les équipements présents dans mon isochrone"),
+                        tags$br(),
+                        
+                        div(class = "container",
+                            style = "display:flex;
+                             flex-direction : row;
+                             justify-content: space-between;
+                             ",
+                            
+                            pickerInput(
+                              inputId = "equipement_theme",
+                              label = "Catégories d'équipements",
+                              choices = isochrones::dicopub_TO_EQPUB_P$theme$alias,
+                              options = list(
+                                `actions-box` = TRUE), 
+                              multiple = TRUE
+                            ),
+                            
+                            pickerInput(
+                              inputId = "equipement_sstheme",
+                              label = "Sous catégories d'équipements",
+                              choices = NULL, 
+                              options = list(
+                                `actions-box` = TRUE), 
+                              multiple = TRUE
+                            )
+                        ),
+                        
+                        
+                        actionButton(inputId = "equipements_computing", label = "Calculer les équipements présents dans la zone")
+                        
+                    )
+                )
             ),
             
-            actionButton(inputId = "isochrone_computing", label = "Lancer calcul de l'isochrone")
+            
+            div(class="div3 border", style = "min-height:100%;", 
+                leafletOutput("map_isochrone", width="100%", height="100%")
+            ),
+            
+            
+            div(class="div4 border", 
+                includeHTML(app_sys("app/www/footer.html"))
+                
+            )
         )
-      ),
-      
-      tabPanel(
-        "équipements",
-        div(class = "content",
-            
-            h2("Afficher les équipements présents dans l'isochrone"),
-            h3("Patienter jusqu'à l'affichage de l'isochrone sur la carte pour lancer la suite"),
-            
-            selectizeInput(inputId = "equipement_theme",
-                           label = "Catégories d'équipements",
-                           choices = c("A : Enseignement divers et formation" = "A",
-                                       "B : Santé et action sociale" = "B",
-                                       "C : Sport - Loisir - Socio-éducatif" = "C",
-                                       "D: Culture - Patrimoine" = "D",
-                                       "E : Administration" = "E",
-                                       "F : Services" = "F",
-                                       "G : Sécurité" = "G",
-                                       "H : Espace vert ou espace urbain public" = "H",
-                                       "J : Déplacements" = "J",
-                                       "K : Production et transformation d'énergie - assainissement - environnement" = "K",
-                                       "L : Cultuel" = "L",
-                                       "M : Métropole" = "M",
-                                       "N : Sénior" = "N",
-                                       "O : Commune" = "O",
-                                       "P : Petite enfance" = "P"),
-                           multiple = TRUE
-            ),
-            
-            actionButton(inputId = "equipements_computing", label = "Calculer les équipements présents dans la zone")
-        ),
-        column(width = 6, h5("titi")
-               
-        ) 
       )
     )
   )

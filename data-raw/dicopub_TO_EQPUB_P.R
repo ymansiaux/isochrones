@@ -15,13 +15,29 @@ dicopub_TO_EQPUB_P <- lapply(seq_len(length(theme_ss_theme)), function(i) {
   
   node <- nodesAttribut[[theme_ss_theme[i]]]
   
-  data.frame(
+  df <- data.frame(
     "value" = xml_child(node) %>% xml_children() %>% xml_attr("value"),
     "alias" = xml_child(node) %>% xml_children() %>% xml_attr("alias")
   )
+  
+  if(i == 2) {
+    
+    df$alias <- paste(df$value, df$alias, sep = " : ")
+  }
+  
+  df
+  
   
 })
 
 names(dicopub_TO_EQPUB_P) <- c("theme", "sstheme")
 
 usethis::use_data(dicopub_TO_EQPUB_P, overwrite = TRUE)
+
+
+# 
+# main_theme <- filter(isochrones::dicopub_TO_EQPUB_P$theme, alias %in% input$equipement_theme) %>% 
+#   +     pull(value)
+# 
+# 
+# dicopub_TO_EQPUB_P$sstheme %>% filter(stringr::str_starts(string = value, pattern = main_theme))

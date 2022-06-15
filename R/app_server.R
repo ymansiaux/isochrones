@@ -7,13 +7,16 @@
 #' @importFrom tibble as_tibble
 #' @importFrom xml2 read_xml as_list
 #' @importFrom tidyr unnest_longer unnest_wider unnest 
-#' @importFrom stringr str_split_fixed
-#' @importFrom dplyr filter bind_cols slice
+#' @importFrom stringr str_split_fixed str_starts
+#' @importFrom dplyr filter bind_cols slice pull
 #' @importFrom sf st_as_sf st_transform st_join sf_use_s2 st_drop_geometry
 #' @importFrom leaflet leaflet addTiles addMarkers renderLeaflet addPolygons addAwesomeMarkers awesomeIcons
 #' @importFrom osrm osrmIsochrone
 #' @importFrom xtradata xtradata_requete_features
 #' @importFrom DT renderDT datatable DTOutput
+#' @importFrom shinyWidgets updatePickerInput
+#' @importFrom glue glue_data
+#' @importFrom cols4all c4a
 #' @noRd
 app_server <- function( input, output, session ) {
   
@@ -21,7 +24,12 @@ app_server <- function( input, output, session ) {
                              isochrone = NULL,
                              equipements = NULL)
   
-  output$emptyMap <- renderLeaflet(leaflet() %>% addTiles())
+  output$emptymap <- renderLeaflet(leaflet() %>% addTiles())
+  
+  ##################
+  #### ONGLET 1 ####
+  ##################
+  
   
   # Your application server logic 
   observeEvent(input$run_geocoding, {
@@ -94,25 +102,33 @@ app_server <- function( input, output, session ) {
     
     data_geo_selected_adress <- data_geo$geocoding[input$geocoding_table_rows_selected,]
     
+    popup_selected_adress <- glue_data(data_geo_selected_adress, "{NUMERO} {NOM_VOIE}, {COMMUNE}")
+    
+    
     map <- data_geo_selected_adress %>% 
       leaflet() %>% 
       addTiles() %>% 
-      addMarkers()
-    
-    if(!is.null(data_geo$isochrone)) {
-      
-      map <- map %>% 
-        addPolygons(data = data_geo$isochrone)
-    }
-    
-    if(!is.null(data_geo$equipements)) {
-      
-      map <- map %>% 
-        addAwesomeMarkers(data = data_geo$equipements, icon = awesomeIcons(markerColor = "red"))
-      
-    }
+      addMarkers(popup = popup_selected_adress)
     
     map
+    
+  })
+  
+  
+  
+  ##################
+  #### ONGLET 2 ####
+  ##################
+  observeEvent(input$equipement_theme, {
+    
+    main_theme <- filter(isochrones::dicopub_TO_EQPUB_P$theme, alias %in% input$equipement_theme) %>% 
+      pull(value)
+    
+    updatePickerInput(inputId = "equipement_sstheme", session = session,
+                      choices =  dicopub_TO_EQPUB_P$sstheme %>% 
+                        filter(str_starts(string = value, pattern = paste(main_theme, collapse = "|"))) %>% 
+                        pull(alias)
+    )
     
   })
   
@@ -130,9 +146,26 @@ app_server <- function( input, output, session ) {
     req(data_geo$geocoding)
     req(data_geo$isochrone)
     
+    filter_xtradata <- list("theme" = list("$in" = 
+                                             filter(isochrones::dicopub_TO_EQPUB_P$theme, alias %in% input$equipement_theme) %>% 
+                                             pull(value)
+    ))
+    
+    if(!is.null(input$equipement_sstheme)) {
+      filter_xtradata <- c(
+        filter_xtradata,
+        list("sstheme" = list("$in" = 
+                              filter(isochrones::dicopub_TO_EQPUB_P$sstheme, alias %in% input$equipement_sstheme) %>% 
+                              pull(value) 
+                              )
+        )
+      )
+    }
+    
     xtradata_call <- xtradata_requete_features(key = Sys.getenv('XTRADATA_KEY'),
                                                typename = "TO_EQPUB_P",
-                                               filter = list("theme" = list("$in" = input$equipement_theme)))
+                                               filter = filter_xtradata
+    )
     
     sf_use_s2(FALSE)
     data_geo$equipements <- st_join(xtradata_call, data_geo$isochrone) %>% 
@@ -140,7 +173,56 @@ app_server <- function( input, output, session ) {
     # https://stackoverflow.com/questions/68478179/how-to-resolve-spherical-geometry-failures-when-joining-spatial-data
   })
   
+  
+  output$map_isochrone <- renderLeaflet({
+    
+    req(data_geo$geocoding)
+    req(input$geocoding_table_rows_selected)
+    
+    data_geo_selected_adress <- data_geo$geocoding[input$geocoding_table_rows_selected,]
+    
+    popup_selected_adress <- glue_data(data_geo_selected_adress, "{NUMERO} {NOM_VOIE}, {COMMUNE}")
+    
+    map <- data_geo_selected_adress %>% 
+      leaflet() %>% 
+      addTiles() %>% 
+      addMarkers(popup = popup_selected_adress)
+    
+    if(!is.null(data_geo$isochrone)) {
+      
+      map <- map %>% 
+        addPolygons(data = data_geo$isochrone)
+    }
+    
+    if(!is.null(data_geo$equipements)) {
+      
+      popup_equipements <-  paste0("<strong>",
+                                   data_geo$equipements$nom,
+                                   "</strong>",
+                                   "<br> theme : ",
+                                   data_geo$equipements$theme,
+                                   "<br> sous-theme : ",
+                                   data_geo$equipements$sstheme)
+        
+ 
+      
+      themes_uniques <- unique(data_geo$equipements$theme)
+      color_equipement <- data.frame("theme" = themes_uniques, col = c4a("rainbow", length(input$equipement_theme)))
+      
+      equipements <- merge(data_geo$equipements, color_equipement, by = "theme")
+      
+      map <- map %>% 
+        addAwesomeMarkers(data = equipements, 
+                          icon = awesomeIcons(iconColor = equipements$col, markerColor = "beige"),
+                          popup = popup_equipements)
+    }
+    
+    map
+    
+  })
+  
   observeEvent(input$pause, browser())
+  
 }
 
 
