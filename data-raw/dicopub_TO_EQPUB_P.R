@@ -8,7 +8,7 @@ xml_dicopub_TO_EQPUB_P <-read_xml("https://data.bordeaux-metropole.fr/wps?key=IN
 nodesAttribut <- xml_find_all(xml_dicopub_TO_EQPUB_P, ".//bm:Attribut")
 
 # on cherche les catégories THEME et SOUS THEME
-theme_ss_theme <- which((nodesAttribut %>% xml_attr("nom") %in% c("THEME", "SSTHEME")))
+theme_ss_theme <- which((nodesAttribut %>% xml_attr("nom")) %in% c("THEME", "SSTHEME"))
 
 
 dicopub_TO_EQPUB_P <- lapply(seq_len(length(theme_ss_theme)), function(i) {
