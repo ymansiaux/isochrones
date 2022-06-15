@@ -37,10 +37,8 @@ app_ui <- function(request) {
       title = "Quels sont les équipements proches de chez moi ?",
       collapsible = TRUE,
       
-      # footer = includeHTML(app_sys("app/www/footer.html")),
-      
       tabPanel(
-        "grid basique",
+        "Géocodage",
         
         div(class="parent",
             div(class="div1 border", "Décrire l'objectif"),
@@ -51,48 +49,50 @@ app_ui <- function(request) {
                              flex-direction : column;
                              min-height:100%;
                              ",
-                  
-                  div(
-                    h4("Préparation du géocodage"),
-                    tags$br(),
-                    textInput(inputId = "adress",
-                              label = "Adresse à géocoder",
-                              value = "27 rue Jean Fleuret, 33000 Bordeaux",
-                              placeholder = "Ex : 35 rue Neuve, 33000 Bordeaux"),
                     
-                    actionButton(inputId = "run_geocoding",
-                                 label = "Lancer le géocodage"
-                    )
-                  ),
-                  
-                  div(style = "margin-bottom: auto;
+                    div(
+                      h4("Préparation du géocodage"),
+                      tags$br(),
+                      textInput(inputId = "adress",
+                                label = "Adresse à géocoder",
+                                value = "27 rue Jean Fleuret, 33000 Bordeaux",
+                                placeholder = "Ex : 35 rue Neuve, 33000 Bordeaux"),
+                      
+                      actionButton(inputId = "run_geocoding",
+                                   label = "Lancer le géocodage"
+                      )
+                    ),
+                    
+                    div(style = "margin-bottom: auto;
                                margin-top: auto;",
-                    h4("Résultat géocodage"),
-                    tags$br(),
-                    DTOutput("geocoding_table"),
-                    tags$br(),
-                    actionButton(inputId = "run_geocoding",
-                                 label = "Valider la sélection et passer à l'onglet suivant"
+                        h4("Résultat géocodage"),
+                        tags$br(),
+                        DTOutput("geocoding_table"),
+                        tags$br(),
+                        actionButton(inputId = "run_geocoding",
+                                     label = "Valider la sélection et passer à l'onglet suivant",
+                                     onclick = "$('ul').find('[data-value=\"Calculer un isochrone\"]').tab('show');"
+                        )
                     )
-                  )
                 )
             ),
-    
-    
+            
+            
             div(class="div3 border", style = "min-height:100%;", 
                 leafletOutput("map_geocoding", width="100%", height="100%")
-                ),
-    
-    
+            ),
+            
+            
             div(class="div4 border", 
                 includeHTML(app_sys("app/www/footer.html"))
                 
             )
         )
       ),
-
+      
       tabPanel(
-        "calculer un isochrone",
+        "Calculer un isochrone",
+        
         div(class = "content",
             
             
@@ -145,7 +145,7 @@ app_ui <- function(request) {
             actionButton(inputId = "equipements_computing", label = "Calculer les équipements présents dans la zone")
         ),
         column(width = 6, h5("titi")
-
+               
         ) 
       )
     )

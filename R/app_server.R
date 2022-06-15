@@ -142,3 +142,6 @@ app_server <- function( input, output, session ) {
    
    observeEvent(input$pause, browser())
 }
+
+
+# https://data.bordeaux-metropole.fr/wps?key=DATAZBOUBB&service=wps&version=1.0.0&request=execute&identifier=dico_couches&datainputs=couche=TO_EQPUB_P
