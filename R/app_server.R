@@ -17,6 +17,8 @@
 #' @importFrom shinyWidgets updatePickerInput
 #' @importFrom glue glue_data
 #' @importFrom cols4all c4a
+#' @importFrom shinyjs runjs
+#' @importFrom shinyYM add_notie_alert
 #' @noRd
 app_server <- function( input, output, session ) {
   
@@ -33,8 +35,6 @@ app_server <- function( input, output, session ) {
   
   # Your application server logic 
   observeEvent(input$run_geocoding, {
-    
-    # adress <- "23 rue neuve, 33000 Bordeaux"
     
     encodedURL <- URLencode(input$adress)
     
@@ -57,20 +57,32 @@ app_server <- function( input, output, session ) {
       unnest(cols = names(.)) %>%
       unnest(cols = names(.))
     
-    geom <- tb_clean %>%
-      unnest(geometry) %>%
-      unnest(geometry)
+    if(!"geometry" %in% colnames(tb_clean)) {
+      
+      data_geo$geocoding <- NULL  
+      
+      add_notie_alert(type = "error", text = "Le géocodage a échoué, essayez une nouvelle adresse",
+                      stay = FALSE, time = 5, position = "bottom", session)
+      
+    } else {
+      
+      geom <- tb_clean %>%
+        unnest(geometry) %>%
+        unnest(geometry)
+      
+      coordinates <-  str_split_fixed(string = geom$geometry, pattern = " ", n = 2)
+      colnames(coordinates) <- c("x", "y")
+      
+      sf_geoloc <- bind_cols(tb_clean, coordinates) %>%
+        st_as_sf(., coords = c("x", "y"), crs = 3945) %>%
+        st_transform(crs = 4326) 
+      
+      
+      data_geo$geocoding <- sf_geoloc
+      print(head(data_geo$geocoding))
+      
+    }
     
-    coordinates <-  str_split_fixed(string = geom$geometry, pattern = " ", n = 2)
-    colnames(coordinates) <- c("x", "y")
-    
-    sf_geoloc <- bind_cols(tb_clean, coordinates) %>%
-      st_as_sf(., coords = c("x", "y"), crs = 3945) %>%
-      st_transform(crs = 4326) 
-    
-    
-    data_geo$geocoding <- sf_geoloc
-    print(head(data_geo$geocoding))
     
   })
   
@@ -86,12 +98,23 @@ app_server <- function( input, output, session ) {
       selection = list(mode = "single", target = "row", selected = 1),
       fillContainer = TRUE
     )
-    
-    
   })
   
   observe(
-    print(input$geocoding_table_rows_selected)
+    if(is.null(data_geo$geocoding)) {
+      runjs('$("#geocoding_results").hide();')
+      runjs('$("#isochrone_computing").addClass("disabled");')
+      runjs('$("#equipements_computing").addClass("disabled");')
+      
+    } else {
+      
+      if(!is.null(data_geo$isochrone)) {
+        runjs('$("#equipements_computing").removeClass("disabled");')
+      }
+      runjs('$("#isochrone_computing").removeClass("disabled");')
+      runjs('$("#geocoding_results").show();')  
+    }
+    
   )
   
   

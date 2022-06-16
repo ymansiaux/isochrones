@@ -66,7 +66,8 @@ app_ui <- function(request) {
                       )
                     ),
                     
-                    div(style = "margin-bottom: auto;
+                    div(id = "geocoding_results", 
+                        style = "margin-bottom: auto;
                                margin-top: auto;",
                         h4("Résultat géocodage"),
                         tags$br(),
