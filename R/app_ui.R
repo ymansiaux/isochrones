@@ -5,11 +5,12 @@
 #' @import shiny
 #' @import bdxmetroidentity
 #' @importFrom shinyjs useShinyjs
-#' @importFrom shinybusy add_busy_spinner
 #' @importFrom shinyYM waiter_logo add_notie_deps
 #' @importFrom sass font_google
 #' @importFrom leaflet leafletOutput
 #' @importFrom shinyWidgets pickerInput
+#' @importFrom shinybusy add_busy_spinner
+#' 
 #' @noRd
 #'
 
@@ -19,6 +20,7 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     add_notie_deps(),
     useShinyjs(),
+    add_busy_spinner(),
     
     waiter_logo(isinProd = golem::app_prod(), img_path = "www/LogoDataLab.png"),
     
@@ -57,7 +59,7 @@ app_ui <- function(request) {
                       textInput(inputId = "adress",
                                 label = "Adresse à géocoder",
                                 value = "27 rue Jean Fleuret, 33000 Bordeaux",
-                                placeholder = "Ex : 35 rue Neuve, 33000 Bordeaux"),
+                                placeholder = "Ex : 27 rue Jean Fleuret, 33000 Bordeaux"),
                       
                       actionButton(inputId = "run_geocoding",
                                    label = "Lancer le géocodage"

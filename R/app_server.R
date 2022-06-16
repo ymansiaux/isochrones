@@ -155,9 +155,9 @@ app_server <- function( input, output, session ) {
       filter_xtradata <- c(
         filter_xtradata,
         list("sstheme" = list("$in" = 
-                              filter(isochrones::dicopub_TO_EQPUB_P$sstheme, alias %in% input$equipement_sstheme) %>% 
-                              pull(value) 
-                              )
+                                filter(isochrones::dicopub_TO_EQPUB_P$sstheme, alias %in% input$equipement_sstheme) %>% 
+                                pull(value) 
+        )
         )
       )
     }
@@ -203,8 +203,8 @@ app_server <- function( input, output, session ) {
                                    data_geo$equipements$theme,
                                    "<br> sous-theme : ",
                                    data_geo$equipements$sstheme)
-        
- 
+      
+      
       
       themes_uniques <- unique(data_geo$equipements$theme)
       color_equipement <- data.frame("theme" = themes_uniques, col = c4a("rainbow", length(input$equipement_theme)))
@@ -220,6 +220,7 @@ app_server <- function( input, output, session ) {
     map
     
   })
+  
   
   observeEvent(input$pause, browser())
   
