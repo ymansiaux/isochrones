@@ -8,7 +8,7 @@
 #' @importFrom shinyYM waiter_logo add_notie_deps
 #' @importFrom sass font_google
 #' @importFrom leaflet leafletOutput
-#' @importFrom shinyWidgets pickerInput
+#' @importFrom shinyWidgets pickerInput dropdown
 #' @importFrom shinybusy add_busy_spinner
 #' 
 #' @noRd
@@ -170,8 +170,12 @@ app_ui <- function(request) {
                             )
                         ),
                         
+                        actionButton(inputId = "equipements_computing", label = "Calculer les équipements présents dans la zone"),
                         
-                        actionButton(inputId = "equipements_computing", label = "Calculer les équipements présents dans la zone")
+                        tags$br(),
+                        tags$br(),
+                        DTOutput("equipements_table")
+                        
                         
                     )
                 )

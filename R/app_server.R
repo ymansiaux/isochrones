@@ -225,7 +225,10 @@ app_server <- function( input, output, session ) {
                                    "<br> theme : ",
                                    data_geo$equipements$theme,
                                    "<br> sous-theme : ",
-                                   data_geo$equipements$sstheme)
+                                   data_geo$equipements$sstheme,
+                                   "<br> adresse : ",
+                                   data_geo$equipements$adrpost
+                                   )
       
       
       
@@ -242,6 +245,18 @@ app_server <- function( input, output, session ) {
     
     map
     
+  })
+  
+  output$equipements_table <- renderDT({
+    
+    req(data_geo$equipements)
+    
+    datatable(
+      st_drop_geometry(
+        data_geo$equipements[, c("nom", "adrpost", "insee", "theme", "sstheme")]
+      ),
+      fillContainer = TRUE
+    )
   })
   
   
