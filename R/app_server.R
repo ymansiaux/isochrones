@@ -26,8 +26,7 @@ app_server <- function( input, output, session ) {
                              isochrone = NULL,
                              equipements = NULL)
   
-  output$emptymap <- renderLeaflet(leaflet() %>% addTiles())
-  
+  output$empty_map <- renderLeaflet(leaflet() %>% addTiles())
   ##################
   #### ONGLET 1 ####
   ##################
@@ -117,7 +116,6 @@ app_server <- function( input, output, session ) {
     
   )
   
-  
   output$map_geocoding <- renderLeaflet({
     
     req(data_geo$geocoding)
@@ -159,8 +157,13 @@ app_server <- function( input, output, session ) {
     
     req(data_geo$geocoding)
     
+    runjs('$(\"#map_isochrone\").addClass(\"map_with_opacity\");');
+    runjs('$(\"#message_calcul_isochrone\").show();');
+    
     data_geo$isochrone <- osrmIsochrone(data_geo$geocoding, breaks = input$isochrone_size, osrm.profile = input$osrm.profile)
     
+    runjs('$(\"#map_isochrone\").removeClass(\"map_with_opacity\");');
+    runjs('$(\"#message_calcul_isochrone\").hide();');    
   })
   
   

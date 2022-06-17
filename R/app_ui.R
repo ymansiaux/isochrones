@@ -192,9 +192,19 @@ app_ui <- function(request) {
             ),
             
             
-            div(class="div3 ", style = "min-height:100%;", 
-                leafletOutput("map_isochrone", width="100%", height="100%")
-            ),
+            div(class="div3 ", style = "min-height:100%;",
+             
+                    leafletOutput("map_isochrone", width="100%", height = "100%"),
+                  
+                  div(style = "text-align: center;
+                               position: relative;
+                               top : -60%;
+                               display:none;",
+                      id = "message_calcul_isochrone",
+                      h3("Calcul de l'isochrone en cours")
+                  )
+            )
+            ,
             
             
             div(class="div4 ", 
