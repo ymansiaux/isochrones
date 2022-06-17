@@ -221,29 +221,31 @@ app_server <- function( input, output, session ) {
     }
     
     if(!is.null(data_geo$equipements)) {
-      
-      popup_equipements <-  paste0("<strong>",
-                                   data_geo$equipements$nom,
-                                   "</strong>",
-                                   "<br> theme : ",
-                                   data_geo$equipements$theme,
-                                   "<br> sous-theme : ",
-                                   data_geo$equipements$sstheme,
-                                   "<br> adresse : ",
-                                   data_geo$equipements$adrpost
-                                   )
-      
-      
-      
-      themes_uniques <- unique(data_geo$equipements$theme)
-      color_equipement <- data.frame("theme" = themes_uniques, col = c4a("rainbow", length(input$equipement_theme)))
-      
-      equipements <- merge(data_geo$equipements, color_equipement, by = "theme")
-      
-      map <- map %>% 
-        addAwesomeMarkers(data = equipements, 
-                          icon = awesomeIcons(iconColor = equipements$col, markerColor = "beige"),
-                          popup = popup_equipements)
+      if(nrow(data_geo$equipements) > 0) {
+        
+        popup_equipements <-  paste0("<strong>",
+                                     data_geo$equipements$nom,
+                                     "</strong>",
+                                     "<br> theme : ",
+                                     data_geo$equipements$theme,
+                                     "<br> sous-theme : ",
+                                     data_geo$equipements$sstheme,
+                                     "<br> adresse : ",
+                                     data_geo$equipements$adrpost
+        )
+        
+        
+        
+        themes_uniques <- unique(data_geo$equipements$theme)
+        color_equipement <- data.frame("theme" = themes_uniques, col = c4a("rainbow", length(input$equipement_theme)))
+        
+        equipements <- merge(data_geo$equipements, color_equipement, by = "theme")
+        
+        map <- map %>% 
+          addAwesomeMarkers(data = equipements, 
+                            icon = awesomeIcons(iconColor = equipements$col, markerColor = "beige"),
+                            popup = popup_equipements)
+      }
     }
     
     map

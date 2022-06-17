@@ -22,7 +22,7 @@ app_ui <- function(request) {
     useShinyjs(),
     add_busy_spinner(),
     
-    waiter_logo(isinProd = golem::app_prod(), img_path = "www/LogoDataLab.png"),
+    # waiter_logo(isinProd = golem::app_prod(), img_path = "www/LogoDataLab.png"),
     
     navbarPage(
       
@@ -103,7 +103,7 @@ app_ui <- function(request) {
         "Calculer un isochrone",
         
         div(class="parent",
-            
+            actionButton(inputId = "pause", "pause"),
             div(class="div1 title_section title_container", 
                 style = "text-align:center;",
                 h3("Calcul d'un isochrone autour de mon adresse", class = "text-uppercase")
