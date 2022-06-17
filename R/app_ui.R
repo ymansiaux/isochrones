@@ -44,8 +44,13 @@ app_ui <- function(request) {
         "Géocodage",
         
         div(class="parent",
-            div(class="div1 border", "Décrire l'objectif"),
-            div(class="div2 border",  
+            
+            div(class="div1 title_section title_container", 
+                style = "text-align:center;",
+                h3("Utilisation du webservice BM de géocodage", class = "text-uppercase")
+            ),
+            
+            div(class="div2 ",  
                 
                 div(class = "container",
                     style = "display:flex;
@@ -82,12 +87,12 @@ app_ui <- function(request) {
             ),
             
             
-            div(class="div3 border", style = "min-height:100%;", 
+            div(class="div3 ", style = "min-height:100%;", 
                 leafletOutput("map_geocoding", width="100%", height="100%")
             ),
             
             
-            div(class="div4 border", 
+            div(class="div4 ", 
                 includeHTML(app_sys("app/www/footer.html"))
                 
             )
@@ -98,8 +103,13 @@ app_ui <- function(request) {
         "Calculer un isochrone",
         
         div(class="parent",
-            div(class="div1 border", "Décrire l'objectif"),
-            div(class="div2 border",  
+            
+            div(class="div1 title_section title_container", 
+                style = "text-align:center;",
+                h3("Calcul d'un isochrone autour de mon adresse", class = "text-uppercase")
+            ),
+            
+            div(class="div2 ",  
                 
                 div(class = "container",
                     style = "display:flex;
@@ -182,12 +192,12 @@ app_ui <- function(request) {
             ),
             
             
-            div(class="div3 border", style = "min-height:100%;", 
+            div(class="div3 ", style = "min-height:100%;", 
                 leafletOutput("map_isochrone", width="100%", height="100%")
             ),
             
             
-            div(class="div4 border", 
+            div(class="div4 ", 
                 includeHTML(app_sys("app/www/footer.html"))
                 
             )
