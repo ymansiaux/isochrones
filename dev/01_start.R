@@ -40,7 +40,7 @@ usethis::use_lifecycle_badge( "Experimental" )
 usethis::use_news_md( open = FALSE )
 
 ## Use git ----
-usethis::use_git()
+# usethis::use_git()
 
 ## Init Testing Infrastructure ----
 ## Create a template for tests
@@ -63,3 +63,4 @@ golem::use_utils_server()
 # go to dev/02_dev.R
 rstudioapi::navigateToFile( "dev/02_dev.R" )
 
+renv::init()

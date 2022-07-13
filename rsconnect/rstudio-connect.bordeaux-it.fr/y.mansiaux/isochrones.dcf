@@ -1,0 +1,13 @@
+name: isochrones
+title: isochrones
+username: y.mansiaux
+account: y.mansiaux
+server: rstudio-connect.bordeaux-it.fr
+hostUrl: https://rstudio-connect.bordeaux-it.fr/__api__
+appId: 70
+bundleId: 217
+url: https://rstudio-connect.bordeaux-it.fr/isochrones/
+when: 1657704737.89332
+lastSyncTime: 1657704737.89333
+asMultiple: FALSE
+asStatic: FALSE
