@@ -37,7 +37,9 @@ app_server <- function( input, output, session ) {
     
     encodedURL <- URLencode(input$adress)
     
-    url <- paste0("https://data.bordeaux-metropole.fr/wps?key=INTERNEUSR&service=wps&version=1.0.0&request=execute&identifier=geocodeur&datainputs=input=", encodedURL)
+    url <- paste0("https://data.bordeaux-metropole.fr/wps?key=",
+                  Sys.getenv("XTRADATA_KEY_INTERNE"),
+                  "&service=wps&version=1.0.0&request=execute&identifier=geocodeur&datainputs=input=", encodedURL)
     print(url)
     res_xml <- read_xml(url)
     

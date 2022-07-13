@@ -23,6 +23,13 @@
       "Repository": "RSPM",
       "Hash": "dcd1743af4336156873e3ce3c950b8b9"
     },
+    "DT": {
+      "Package": "DT",
+      "Version": "0.20",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "0163cd2ce6c7995005a0fc363d570963"
+    },
     "KernSmooth": {
       "Package": "KernSmooth",
       "Version": "2.23-20",
@@ -65,6 +72,27 @@
       "Repository": "RSPM",
       "Hash": "32e79b908fda56ee57fe518a8d37b864"
     },
+    "Rttf2pt1": {
+      "Package": "Rttf2pt1",
+      "Version": "1.3.10",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "8952819f94cd9fce521f9b1cb558f8a4"
+    },
+    "XML": {
+      "Package": "XML",
+      "Version": "3.99-0.9",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "6e75b3884423e21eda89b424a98e091d"
+    },
+    "abind": {
+      "Package": "abind",
+      "Version": "1.4-5",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "4f57884290cc75ab22f4af9e9d4ca862"
+    },
     "askpass": {
       "Package": "askpass",
       "Version": "1.1",
@@ -92,6 +120,19 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "543776ae6848fde2f48ff3816d0628bc"
+    },
+    "bdxmetroidentity": {
+      "Package": "bdxmetroidentity",
+      "Version": "0.4.0",
+      "Source": "GitHub",
+      "Remotes": "hadley/emo",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "bdxmetroidentity",
+      "RemoteUsername": "ymansiaux",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "997fe75fce9848b39415ef091706e37937348533",
+      "Hash": "7371f099c184ffcedd9c2c7e434719d7"
     },
     "brew": {
       "Package": "brew",
@@ -163,6 +204,18 @@
       "Repository": "RSPM",
       "Hash": "bb4341986bc8b914f0f0acf2e4a3f2f7"
     },
+    "cols4all": {
+      "Package": "cols4all",
+      "Version": "0.3",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "cols4all",
+      "RemoteUsername": "mtennekes",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "a0d3023f27a61d65a726a1d5cfd5c81f3154dc87",
+      "Hash": "129b51550530c8cfef0a8b9d6aa5bd2d"
+    },
     "commonmark": {
       "Package": "commonmark",
       "Version": "1.7",
@@ -176,6 +229,25 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "31d77b09f63550cee9ecb5a08bf76e8f"
+    },
+    "covr": {
+      "Package": "covr",
+      "Version": "3.5.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "6d80a9fc3c0c8473153b54fa54719dfd"
+    },
+    "covrpage": {
+      "Package": "covrpage",
+      "Version": "0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "covrpage",
+      "RemoteUsername": "yonicd",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "b5e63902e3a33fbc5f927ef7a300477589536854",
+      "Hash": "6e4c5a8b2fa2c27e7a9242af60fcc255"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -275,6 +347,20 @@
       "Repository": "RSPM",
       "Hash": "699a7a93d08c962d9f8950b2d7a227f1"
     },
+    "extrafont": {
+      "Package": "extrafont",
+      "Version": "0.18",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "07a8a50195fc77e8690fd8bc4e87e6a0"
+    },
+    "extrafontdb": {
+      "Package": "extrafontdb",
+      "Version": "1.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "a861555ddec7451c653b40e713166c6f"
+    },
     "fansi": {
       "Package": "fansi",
       "Version": "1.0.3",
@@ -352,6 +438,13 @@
       "Repository": "RSPM",
       "Hash": "38c2580abbda249bd6afeec00d14f531"
     },
+    "git2r": {
+      "Package": "git2r",
+      "Version": "0.30.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "e0c6a04a3e7b90e64213d09128f74f1b"
+    },
     "gitcreds": {
       "Package": "gitcreds",
       "Version": "0.1.1",
@@ -379,6 +472,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "6b811143f8e8b18ef4bd6ee4b38b4a9b"
+    },
+    "grImport2": {
+      "Package": "grImport2",
+      "Version": "0.2-0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "e348e793cde95a4e94f5337f88039c7e"
     },
     "gridExtra": {
       "Package": "gridExtra",
@@ -456,6 +556,19 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "7ab57a6de7f48a8dc84910d1eca42883"
+    },
+    "isochrones": {
+      "Package": "isochrones",
+      "Version": "0.0.0.9000",
+      "Source": "unknown",
+      "Hash": "beb3a6ae55d331c0df16f7cc13291106"
+    },
+    "jpeg": {
+      "Package": "jpeg",
+      "Version": "0.1-9",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "441ee36360a57b363f4fa3df0c364630"
     },
     "jquerylib": {
       "Package": "jquerylib",
@@ -758,6 +871,13 @@
       "Repository": "RSPM",
       "Hash": "30e5eba91b67f7f4d75d31de14bbfbdc"
     },
+    "rex": {
+      "Package": "rex",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "ae34cd56890607370665bee5bd17812f"
+    },
     "rhub": {
       "Package": "rhub",
       "Version": "1.1.1",
@@ -806,6 +926,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "06c85365a03fdaf699966cc1d3cf53ea"
+    },
+    "rsvg": {
+      "Package": "rsvg",
+      "Version": "2.3.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "fa06e1c45299cb47f2aafeff3ef0edf6"
     },
     "rversions": {
       "Package": "rversions",
@@ -862,6 +989,39 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "00344c227c7bd0ab5d78052c5d736c44"
+    },
+    "shinyWidgets": {
+      "Package": "shinyWidgets",
+      "Version": "0.7.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "4c00b64347509091f39c01c52f8d9e4c"
+    },
+    "shinyYM": {
+      "Package": "shinyYM",
+      "Version": "0.1.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "shinyYM",
+      "RemoteUsername": "ymansiaux",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "8dff4d4ea1286a2d9c1a7442feaf779573950529",
+      "Hash": "793bba89b29dd5dddde2c2705bee3e55"
+    },
+    "shinybusy": {
+      "Package": "shinybusy",
+      "Version": "0.3.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "cf0b9330f677599316a4b36682081e8b"
+    },
+    "shinyjs": {
+      "Package": "shinyjs",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "802e4786b353a4bb27116957558548d5"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -996,6 +1156,13 @@
       "Repository": "RSPM",
       "Hash": "55e157e2aa88161bdb0754218470d204"
     },
+    "waiter": {
+      "Package": "waiter",
+      "Version": "0.2.5",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "93e6b6c8ae3f81d4be77a0dc74e5cf5e"
+    },
     "waldo": {
       "Package": "waldo",
       "Version": "0.3.1",
@@ -1062,10 +1229,14 @@
     "xtradata": {
       "Package": "xtradata",
       "Version": "0.5.0",
-      "Source": "Repository",
-      "Repository": "RSPM",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "xtradata",
+      "RemoteUsername": "ymansiaux",
+      "RemoteRef": "HEAD",
       "RemoteSha": "eccecff0273ef892b8e96327ed9d936064c27a07",
-      "Hash": "810a64fd0856dc50faacf4d775b2f80e"
+      "Hash": "c0d832aa7acb92d578cf62e4e597f931"
     },
     "yaml": {
       "Package": "yaml",
